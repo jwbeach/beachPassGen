@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Javascript Password Generator</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <!-- <link rel="stylesheet" href="./assets/css/reset.css"> -->
     <link rel="stylesheet" href="./assets/style.css">
 </head>
@@ -14,8 +15,39 @@
 <h2>Password Generator</h2>
     <div class="passSlider">
     <input type="range" class="slider" min="8" max="20" id="passLength">
-    <p>Passowrd Length: <span id="slideValue"></span></p>
+    <p class="lengthBox">Password Length: <span id="slideValue"></span></p>
     </div>
+    <div class="passParameters custom-checkbox">
+        <p>Please Select One or More of the Following Parameters to Include in Your Password:</p>
+            <!-- Parameter - Numbers (para1) -->
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="para1">
+                <label class="form-check-label" for="para1">Numbers - 1234567890</label>
+            </div>
+            <!-- Parameter - low case (para2) -->
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="para2">
+                <label class="form-check-label" for="para2">Lower Case Letters - abcdefghijklmnopqrstuvwxyz</label>
+            </div>
+            <!-- Parameter - UPPER CASE (para3) -->
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="para3">
+                <label class="form-check-label" for="para3">Upper Case Letters - ABCDEFGHIJKLMNOPQRSTUVWXYZ</label>
+            </div>
+            <!-- Parameter - Special Characters (para4) -->
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="para4">
+                <label class="form-check-label" for="para4">Special Characters - !@#$%^&*()_+{}|:"?</label>
+            </div>
+        
+        
+    </div>
+
+    <!-- Generator Button -->
+  
+    <button type="button" class="btn btn-primary btn-lg" >Generate</button>
+   
+    
 </div>
 
 

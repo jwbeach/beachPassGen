@@ -55,3 +55,14 @@
     opacity: 1;
      /*shows user that they are on the slider*/
   }
+  
+  .lengthBox {
+    border: 3px solid var(--blueB);
+    width: 100px;
+  }
+
+  #slideValue{
+    color: #E66312;
+    font-size: 20px;
+    font-weight: 700;
+    }
