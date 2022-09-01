@@ -1,14 +1,14 @@
-//linking to html
+//I went a little rogue when starting this project and I was too far along to stop
+//Have mercy! Thanks! 
+
+// variables linking to html
 var passSlider = document.getElementById("passLength");
 var slideOutput = document.getElementById("slideValue");
 slideOutput.innerHTML = passSlider.value;
-var password=document.getElementById("password");
-var generateButton = document.querySelector('#button1');//query selector for button
-var para1DOM = document.getElementById("para1");//"1234567890"
-var para2DOM = document.getElementById("para2");//"abcdefghijklmnopqrstuvwxyz"
-var para3DOM = document.getElementById("para3");//"ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-var para4DOM = document.getElementById("para4");//"!@#$%^&*()_+{}|:?"
-
+var generateButton = document.querySelector('#button1');//query selector for generate button
+var modal = document.getElementById("passModal");
+var span = document.getElementsByClassName("close")[0];
+var copyButton = document.querySelector("#copy");
 
 // reads out password length slider value in real time
 passSlider.oninput = function() {
@@ -17,50 +17,78 @@ passSlider.oninput = function() {
 
 //checks parameters and generates string with checked parameters
 function checkPara () {
-var numbers = "1234567890";
-var lowerCase = "abcdefghijklmnopqrstuvwxyz";
-var upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-var specialChar = "!@#$%^&*()_+{}|:?";
-const passArray = [""] //intial array from parameter checkboxes 
+    var numbers = "1234567890";
+    var lowerCase = "abcdefghijklmnopqrstuvwxyz";
+    var upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    var specialChar = "!@#$%^&*()_+{}|:?";
+    const passArray = [] //intial array from parameter checkboxes 
 
-    //checks for clicked parameters and adds to passArray
-    if(document.getElementById("para1").checked) {
-            passArray.push(numbers); 
-        }//"1234567890"
-    if(document.getElementById("para2").checked) {
-            passArray.push(lowerCase); 
-        }//"abcdefghijklmnopqrstuvwxyz"
-    if(document.getElementById("para3").checked) {
-            passArray.push(upperCase); 
-        }//"ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    if(document.getElementById("para4").checked) {
-            passArray.push(specialChar); 
-        }//"!@#$%^&*()_+{}|:?"
+        //checks for clicked parameters and adds to passArray
+        if(document.getElementById("para1").checked) {
+                passArray.push(numbers); 
+            }//"1234567890"
+        if(document.getElementById("para2").checked) {
+                passArray.push(lowerCase); 
+            }//"abcdefghijklmnopqrstuvwxyz"
+        if(document.getElementById("para3").checked) {
+                passArray.push(upperCase); 
+            }//"ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        if(document.getElementById("para4").checked) {
+                passArray.push(specialChar); 
+            }//"!@#$%^&*()_+{}|:?"
 
-//makes passArray a single string without commas 
-const passString = passArray.join("");
-console.log(passString);
-genPass(); 
-return; //is this needed?
-
+    //makes passArray a single string without commas 
+    const passString = passArray.join('');
+    // then function genPass
+    genPass(passString); 
+    // then function modalDisplay
+    modalDisplay();    
 }
-// console.log(passSlider.value);
 
+// Takes field of parameters and randomly pulls from it X times in for loop
+// X is determined by passSlider value
 function genPass(passString) {
-var password = [""];
-
-for (let i = 0; i < passSlider.value; i++) {
-    var pulled = passString[Math.floor(Math.random() * passString.length)];
-    password.push(pulled);
-}
-console.log(password);
-//var item = items[Math.floor(Math.random()*items.length)];
-//pull from the passString X amount of times
+    var password = [];
+    for (let i = 0; i < passSlider.value; i++) {
+        var pulled = passString[Math.floor(Math.random() * passString.length)];
+        password.push(pulled);
+    }
+    document.getElementById("passDisplay").innerHTML = password.join('');
 }
 
-//create modale to display and copy
+// modal display function
+function modalDisplay() {
+    modal.style.display = "block";
+} 
 
-generateButton.addEventListener("click", checkPara);//generates pass on click
+//close modal function on (X)
+span.onclick = function(dis) {
+    modal.style.display = "none";
+}
+ 
+//close modal function on click anywhere other than modal
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
 
+//copy function from HTML passDisplay, innerHTML from genPass()
+function copyPass() {
+    //grabs password display from HTML 
+    var copyPassDisplay = document.getElementById("passDisplay");
+    //returns new range object for pass
+    var passRange = document.createRange();
+    var passSelect = window.getSelection();
+    passRange.selectNodeContents(copyPassDisplay);
+    passSelect.removeAllRanges();
+    //selects range equal to nodes found in passDisplay aka highlights the Password
+    passSelect.addRange(passRange);
+    //executes copy function
+    document.execCommand("copy");
+    // sends an alert notifying password has been copied
+    alert("Password Successfully Copied");
+}
 
-
+// Event listener for generate button, initiates checkPara Function on click
+generateButton.addEventListener("click", checkPara);
