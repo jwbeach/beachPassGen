@@ -8,7 +8,7 @@ slideOutput.innerHTML = passSlider.value;
 var generateButton = document.querySelector('#button1');//query selector for generate button
 var modal = document.getElementById("passModal");
 var span = document.getElementsByClassName("close")[0];
-var copyButton = document.querySelector("#copy");
+
 
 // reads out password length slider value in real time
 passSlider.oninput = function() {
@@ -74,19 +74,15 @@ window.onclick = function(event) {
 }
 
 //copy function from HTML passDisplay, innerHTML from genPass()
+//GOES THROUGH DOM
 function copyPass() {
-    //grabs password display from HTML 
     var copyPassDisplay = document.getElementById("passDisplay");
-    //returns new range object for pass
     var passRange = document.createRange();
     var passSelect = window.getSelection();
     passRange.selectNodeContents(copyPassDisplay);
     passSelect.removeAllRanges();
-    //selects range equal to nodes found in passDisplay aka highlights the Password
     passSelect.addRange(passRange);
-    //executes copy function
     document.execCommand("copy");
-    // sends an alert notifying password has been copied
     alert("Password Successfully Copied");
 }
 
